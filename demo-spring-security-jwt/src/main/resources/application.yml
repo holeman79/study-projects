@@ -1,0 +1,49 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    username: sa
+    password:
+    #url: jdbc:h2:mem:spring-security-oauth-exercise
+    #url: jdbc:h2:~/h2data/spring-security-oauth-exercise
+    url: jdbc:h2:tcp://localhost/~/h2data/spring-security-oauth-exercise
+    dirver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 759946731112-52pbcn2l027eq5k5mmmbpjbl2n5dmkmf.apps.googleusercontent.com
+            client-secret: Lf6KLAP5ofAD3y56UPVZoA8d
+            #redirectUriTemplate: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - profile
+              - email
+          facebook:
+            client-id: 454459275137411
+            client-secret: 9cb848b94908d208099864386a0bd6be
+            scope:
+              - email
+              - public_profile
+              - picture
+          github:
+            client-id: 814cbbdde9616de7d101
+            client-secret: 5261ea977c67051a4805da1f46ad9e33f932fc4a
+  h2:
+    console:
+      enabled: true
+      path: /console
+
+app:
+  jwtSecret: JWTSuperSecretKey
+  jwtExpirationInMs: 6000000 #100분
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect

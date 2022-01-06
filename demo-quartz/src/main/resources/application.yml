@@ -1,0 +1,15 @@
+spring:
+  quartz:
+  scheduler-name: QuartzScheduler
+  job-store-type: jdbc
+  properties:
+    org.quartz.scheduler.instanceId: AUTO
+    org.quartz.threadPool.threadCount: 20
+    org.quartz.threadPool.threadNamePrefix: QuartzScheduler
+    org.quartz.jobStore:
+      tablePrefix: QRTZ_
+      isClustered: true
+      class: org.quartz.impl.jdbcjobstore.JobStoreTX
+      driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      useProperties: true
+      misfireThreshold: 60000
