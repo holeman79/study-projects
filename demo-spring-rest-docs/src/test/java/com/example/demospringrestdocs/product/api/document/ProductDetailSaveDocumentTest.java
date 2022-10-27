@@ -37,6 +37,18 @@ public class ProductDetailSaveDocumentTest extends ApiDocumentationTest {
 
     @Test
     void save() throws Exception {
+        Request2 request2 = new Request2(12345L);
+        ResultActions result = this.mockMvc.perform(
+                post("/api/products")
+                        //.param("memberId", "135")
+                        .content(this.objectMapper.writeValueAsString(request2))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaTypes.HAL_JSON)
+        );
+    }
+
+    @Test
+    void save_detail() throws Exception {
 //        ProductDetailResponseDto productDetailResponseDto = ProductDetailResponseDto.builder()
 //                .productNames()
 //                .productImages()
@@ -91,6 +103,16 @@ public class ProductDetailSaveDocumentTest extends ApiDocumentationTest {
         public Request(final Long productId, final Long productDetailId) {
             this.productId = productId;
             this.productDetailId = productDetailId;
+        }
+    }
+
+    @Getter
+    public static class Request2 {
+        private Long memberId;
+
+        @Builder
+        public Request2(final Long memberId) {
+            this.memberId = memberId;
         }
     }
 }

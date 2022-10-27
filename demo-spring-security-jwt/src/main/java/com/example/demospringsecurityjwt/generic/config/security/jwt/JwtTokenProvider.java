@@ -1,12 +1,19 @@
 package com.example.demospringsecurityjwt.generic.config.security.jwt;
 
+import com.example.demospringsecurityjwt.generic.config.security.CustomAuthenticationToken;
 import com.example.demospringsecurityjwt.member.domain.MemberRole;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -20,35 +27,32 @@ public class JwtTokenProvider {
 
     private static final String AUTHORITIES_KEY = "role";
 
-    private static final String NICK_NAME = "nick_name";
-
-    public String generateToken(Long id, String role, String nickName) {
-
+    public String generateToken(final String loginId, final MemberRole role) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
-                .setSubject(Long.toString(id))
-                .claim(AUTHORITIES_KEY, role)
-                .claim(NICK_NAME, nickName)
+                .setSubject(loginId)
+                .claim(AUTHORITIES_KEY, role.getFullRoleName())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
-    public JwtMember getJwtMemberData(String token){
+    public Authentication getAuthentication(final String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
-        Long id = Long.parseLong(claims.getSubject());
-        String nickName = claims.get(NICK_NAME).toString();
         String role = claims.get(AUTHORITIES_KEY).toString();
-        MemberRole memberRole = MemberRole.findRole(role);
+        Collection<? extends GrantedAuthority> authorities = Collections.singleton(role)
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toUnmodifiableList());
 
-        return JwtMember.of(id, nickName, memberRole);
+        return new CustomAuthenticationToken(claims.getSubject(), authorities);
     }
 
     public boolean validateToken(String authToken) {

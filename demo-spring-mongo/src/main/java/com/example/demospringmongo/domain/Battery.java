@@ -1,5 +1,8 @@
 package com.example.demospringmongo.domain;
 
+import lombok.Builder;
+
+@Builder
 public class Battery {
 
     private Cell Cell01;

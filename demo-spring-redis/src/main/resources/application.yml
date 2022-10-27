@@ -1,4 +1,13 @@
 spring:
+  profiles:
+    active: prod
   redis:
     host: 175.106.98.100
+    port: 6379
+
+---
+spring:
+  profiles: prod
+  redis:
+    host: 223.130.160.131
     port: 6379

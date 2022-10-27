@@ -1,15 +1,18 @@
 package com.example.demospringjpa.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 
 @Getter
 @MappedSuperclass
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Number {
     private static final int MIN = 1;
 
-    private final int number;
+    private int number;
 
     public Number(final int number) {
         if (number < MIN) {

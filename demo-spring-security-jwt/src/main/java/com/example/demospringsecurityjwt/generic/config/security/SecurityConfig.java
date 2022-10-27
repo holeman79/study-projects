@@ -26,13 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
-            log.error("Responding with fobidden error. Message - {}", accessDeniedException.getMessage());
+            log.error("Responding with forbidden error. Message - {}", accessDeniedException.getMessage());
             response.sendError(HttpServletResponse.SC_FORBIDDEN, accessDeniedException.getMessage());
         };
     }

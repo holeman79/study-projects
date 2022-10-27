@@ -1,5 +1,9 @@
 package com.example.demospringjpa.entity;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuestionNumber extends Number {
     private static final String INDICATION = "Q";
 

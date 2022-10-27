@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      #uri: mongodb://admin:admin@175.106.98.100:27017/mqtt
+      uri: mongodb://subscriber:subscriber@101.79.10.243:27017/garak

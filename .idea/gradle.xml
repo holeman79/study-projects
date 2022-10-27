@@ -15,6 +15,18 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/demo-multimodule" />
+        <option name="gradleHome" value="/usr/local/Cellar/gradle/6.7.1/libexec" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/demo-multimodule" />
+            <option value="$PROJECT_DIR$/demo-multimodule/api-server" />
+            <option value="$PROJECT_DIR$/demo-multimodule/common" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/demo-quartz" />
         <option name="gradleHome" value="/usr/local/Cellar/gradle/6.7.1/libexec" />
         <option name="gradleJvm" value="11" />

@@ -1,2 +1,26 @@
-Server:
-  port: 9090
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 8090
+
+mqtt:
+  url: tcp://175.106.98.100:1883
+  clientId: skyangmqtt001
+  topicPrefix: /garak/mqtt/
+
+logging:
+  level:
+    root: info
+  path: /Users/jowonjin/logs/local
+  filename: demo_spring_basic_log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+
+demo.logging.dir : /Users/jowonjin/IdeaProjects/log/demo
+demo.logging.level : DEBUG

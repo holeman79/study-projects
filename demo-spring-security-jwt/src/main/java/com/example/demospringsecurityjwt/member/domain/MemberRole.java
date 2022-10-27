@@ -1,31 +1,21 @@
 package com.example.demospringsecurityjwt.member.domain;
 
-import com.example.demospringsecurityjwt.member.exception.MemberRoleNotFoundException;
 import lombok.Getter;
-
-import java.util.Arrays;
-import java.util.Objects;
 
 @Getter
 public enum MemberRole {
+    MEMBER("일반 사용자"),
+    ADMIN("관리자");
 
-    MEMBER("ROLE_MEMBER", "일반 사용자"),
-    ADMIN("ROLE_ADMIN", "관리자")
-    ;
+    private static final String PREFIX = "ROLE_";
 
-    private String key;
+    private String description;
 
-    private String value;
-
-    MemberRole(String key, String value){
-        this.key = key;
-        this.value = value;
+    MemberRole(final String description) {
+        this.description = description;
     }
 
-    public static MemberRole findRole(String key){
-        return Arrays.stream(MemberRole.values())
-                .filter(memberRole -> Objects.equals(memberRole.key, key))
-                .findFirst()
-                .orElseThrow(MemberRoleNotFoundException::new);
+    public String getFullRoleName() {
+        return PREFIX + this.description;
     }
 }

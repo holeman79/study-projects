@@ -1,4 +1,4 @@
-package com.example.demospringredis.domain;
+package com.example.demospringredis.temp;
 
 import lombok.RequiredArgsConstructor;
 

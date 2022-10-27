@@ -2,28 +2,24 @@ package com.example.demospringredis.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.redis.core.RedisHash;
-
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import lombok.ToString;
 
 @Getter
-@RedisHash("mobilities")
+@ToString
+@Builder
 public class Mobility {
-    @Id
-    private Long id;
+
+    private Long batteryId;
 
     private String name;
 
-    private BatteryState batteryState;
+    private Double value1;
 
-    private LocalDateTime interfacedTime;
+    //private LocalDateTime interfacedTime;
 
-    @Builder
-    private Mobility(final Long id, final BatteryState batteryState, final String name) {
-        this.id = id;
+
+    public void updateName(final String name) {
         this.name = name;
-        this.batteryState = batteryState;
-        this.interfacedTime = LocalDateTime.now();
     }
+
 }

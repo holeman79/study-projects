@@ -1,7 +1,10 @@
 package com.example.demospringbasic.application.dto;
 
 import com.example.demospringbasic.domain.ProductNumber;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

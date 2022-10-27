@@ -2,13 +2,14 @@ package com.example.demospringsecurityjwt.member.api;
 
 import com.example.demospringsecurityjwt.generic.response.ApiResponseDto;
 import com.example.demospringsecurityjwt.member.application.MemberService;
-import com.example.demospringsecurityjwt.member.dto.SignupRequest;
-import com.example.demospringsecurityjwt.generic.config.security.jwt.JwtMember;
 import com.example.demospringsecurityjwt.member.dto.LoginRequest;
 import com.example.demospringsecurityjwt.member.dto.MemberDto;
+import com.example.demospringsecurityjwt.member.dto.SignupRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -31,11 +32,11 @@ public class MemberController {
         return ApiResponseDto.OK(memberDto);
     }
 
-    @GetMapping("/{id}")
-    public ApiResponseDto<?> getMember(@PathVariable Long id){
-        JwtMember jwtMember = (JwtMember)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(jwtMember);
-        return ApiResponseDto.OK();
-
-    }
+//    @GetMapping("/{id}")
+//    public ApiResponseDto<?> getMember(@PathVariable Long id){
+//        JwtMember jwtMember = (JwtMember)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(jwtMember);
+//        return ApiResponseDto.OK();
+//
+//    }
 }

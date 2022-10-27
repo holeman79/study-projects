@@ -23,40 +23,42 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public MemberDto login(LoginRequest loginRequest){
+    public MemberDto login(final LoginRequest loginRequest) {
         Member member = findMember(loginRequest);
         String token = generateToken(member);
         return MemberDto.of(member, token);
     }
 
-    private Member findMember(LoginRequest loginRequest){
+    private Member findMember(final LoginRequest loginRequest) {
         Member member = memberRepository.findByLoginId(loginRequest.getLoginId()).orElseThrow(() -> new MemberNotFoundException());
         validatePassword(loginRequest.getPassword(), member.getPassword());
         return member;
     }
 
-    private void validatePassword(String requestPassword, String targetPassword){
-        if(!passwordEncoder.matches(requestPassword, targetPassword)){
+    private void validatePassword(final String requestPassword, final String targetPassword) {
+        if (!passwordEncoder.matches(requestPassword, targetPassword)) {
             throw new MemberPasswordNotMatchedException();
         }
     }
 
-    public MemberDto signup(SignupRequest signupRequest){
+    public MemberDto signup(final SignupRequest signupRequest) {
         validateDuplicateMember(signupRequest.getLoginId());
         String encodedPassword = passwordEncoder.encode(signupRequest.getPassword());
 
         Member member = Member.createMember(signupRequest.getLoginId(), encodedPassword,
-                                            signupRequest.getNickName(), signupRequest.getMemberRole());
+                signupRequest.getNickName(), signupRequest.getMemberRole());
         Member savedMember = memberRepository.save(member);
         String token = generateToken(savedMember);
         return MemberDto.of(savedMember, token);
     }
 
-    private void validateDuplicateMember(String loginId){
-        if(memberRepository.findByLoginId(loginId).isPresent()) throw new MemberAlreadyExistException();
+    private void validateDuplicateMember(final String loginId) {
+        if (memberRepository.findByLoginId(loginId).isPresent()) {
+            throw new MemberAlreadyExistException();
+        }
     }
 
-    private String generateToken(Member member){
-        return jwtTokenProvider.generateToken(member.getId(), member.getMemberRole().getKey(), member.getNickName());
+    private String generateToken(final Member member) {
+        return jwtTokenProvider.generateToken(member.getLoginId(), member.getMemberRole());
     }
 }

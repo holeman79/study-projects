@@ -41,7 +41,7 @@ class ProductApiTest {
                         ProductCreateDto.ImageCreateDto.builder()
                                 .number(1)
                                 .imageName("image01")
-                                .isDeleted(true)
+                                .deleted(true)
                                 .build(),
                         ProductCreateDto.ImageCreateDto.builder()
                                 .number(2)
